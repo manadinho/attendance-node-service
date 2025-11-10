@@ -24,11 +24,8 @@ async function startAttendanceCron() {
     try {
 		const alreadySent = [];
 		const channelMessages = {};
-
 		let attendance;
-		console.log('🔍 Checking for attendances to process...');
-		const queueLength = await redis.lLen('attendances');
-		console.log('=== attendances length:', queueLength);
+		
 		while ((attendance = await redis.lPop('attendances'))) {
 					const attendanceObj = JSON.parse(attendance);
 			console.log('📤 Processing attendance:', attendanceObj);
@@ -121,7 +118,7 @@ async function startAttendanceCron() {
 				const res = await fetch(whatsappUrl, {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json', 'x-den-api-key': process.env.DEN_API_KEY || '' },
-					body: JSON.stringify({ messages })
+					body: JSON.stringify({messages: messages}),
 				});
 
 				if (!res.ok) {

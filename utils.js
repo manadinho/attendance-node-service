@@ -20,7 +20,7 @@ function prettyTime(epochSeconds, timeZone = 'UTC') {
 function prepareAttendanceMessage(data) {
   return data?.template
     .replace('{student_name}', data?.studentName)
-    .replace('{father_name}', data?.guardianName)
+    .replace('{guardian_name}', data?.guardianName)
     .replace('{date_time}', data?.time)
     .replace('{class_name}', data?.standard_name)
     .replace('{school_name}', data?.schoolName) || '';
