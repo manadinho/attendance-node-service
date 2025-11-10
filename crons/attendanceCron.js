@@ -25,7 +25,7 @@ async function startAttendanceCron() {
 		const alreadySent = [];
 		const channelMessages = {};
 		let attendance;
-		
+
 		while ((attendance = await redis.lPop('attendances'))) {
 					const attendanceObj = JSON.parse(attendance);
 			console.log('📤 Processing attendance:', attendanceObj);
@@ -109,9 +109,6 @@ async function startAttendanceCron() {
 				console.log(`⚠️ Skipping channel ${channelId}: Missing WhatsApp URL or messages`);
 				continue;
 			}
-
-			console.log(`=== whatsappUrl for channel ${channelId}:`, whatsappUrl);
-			console.log(`=== messages for channel ${channelId}:`, messages);
 
 
 			try {
